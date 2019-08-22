@@ -1,0 +1,41 @@
+  525  whoami
+  526  hostname
+  527  cd Desktop/
+  528  mkdir OS
+  529  ls
+  530  cd OS
+  531  mkdir ~/week1
+  532  ls ~
+  533  rm ~/week1/
+  534  rm -r ~/week1/
+  535  ls ~
+  536  jobs
+  537  mkdir week1
+  538  cd week1/
+  539  grep gcc /usr/bin/ 
+  540  grep gcc /usr/bin/mail
+  541  ls /usr/bin/ | grep gcc 
+  542  stdin > grep gcc
+  543  grep gcc > stdin
+  544  grep gcc > stdin
+  545  grep gcc > stdin
+  546  grep gcc > stdout
+  547  grep gcc > stdout
+  548  grep gcc > m.txt
+  549  cat m.txt 
+  550  rm m.txt 
+  551  ls /usr/bin | grep gcc 
+  552  ls /usr/bin | grep gcc | sort -r
+  553  ls /usr/bin | grep gcc | sort -r
+  554  ls /usr/bin | grep gcc | sort -r > ex1.txt
+  555  ls
+  556  cat ex1.txt 
+  557  ls
+  558  rm stdin 
+  559  rm stdout 
+  560  ls
+  561  rm grep 
+  562  ls
+  563  cat ex1.txt 
+  564  ls /usr/bin | grep gcc | sort -r > ex1.txt
+  565  history > ex2.txt
