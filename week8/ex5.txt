@@ -1,0 +1,2 @@
+Virtual address is an abstraction to give process infite memory. When it is accesed it links to the real physical address.
+Physical address is actual address of the unit on physical memory.

@@ -1,0 +1,4 @@
+Pages are 8KB, address is 16 bit.
+Offset: 3 + 10 = 13 bit
+Page number: 16 - 13 = 3 bit
+Number of entries in the page table: 2 ^ 3 = 8 pages
