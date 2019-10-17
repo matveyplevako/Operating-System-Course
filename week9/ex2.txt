@@ -1,0 +1,2 @@
+1) To increase hit/miss rate we need to have more avaliable page frames than distinct pages.
+2) To decrease hit/miss rate we need to have more distict pages and less page frames.
