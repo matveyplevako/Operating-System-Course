@@ -1,0 +1,2 @@
+found 2 links in ./tmp/link1
+found 2 links in ./tmp/file1

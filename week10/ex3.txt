@@ -1,0 +1,15 @@
+-rw-r--r--  1 matvey  staff  0 23 Oct 19:54 _ex3.txt
+chmod 666 _ex3.txt 
+-rw-rw-rw-  1 matvey  staff  0 23 Oct 19:55 _ex3.txt
+chmod 707 _ex3.txt 
+-rwx---rwx  1 matvey  staff  0 23 Oct 19:55 _ex3.txt
+chmod g=u _ex3.txt 
+-rwxrwxrwx  1 matvey  staff  0 23 Oct 19:55 _ex3.txt
+
+
+
+
+
+660 means allow read, write and execute only for user and group
+775 means allow read, write and execute for user and group, read and execute for others 
+777 means allow everyone read, write and execute
