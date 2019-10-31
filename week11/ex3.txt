@@ -1,0 +1,2 @@
+content of buffer is not displayed after 1 program printf, and \n is cleaning buffer.
+when we create process, buffer is copied. Program 1 has not cleaned its buffer, so hello is displayed twise. Program 2 copy empty buffer, so hello is displayed once.
