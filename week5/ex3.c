@@ -1,57 +1,87 @@
-#include <pthread.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <time.h>
+#include <pthread.h>
+#include <zconf.h>
 
-#define FULL 8
+#define N 3
+#define INTERVAL 1000000
 
-int buffer = 0;
-int cons_sleep = 0;
-int prod_sleep = 0;
+int size = 0;
+int buf[N] = {0};
 
+int p_sleep = 0;
+int c_sleep = 0;
+int t = 0;
 
-void *consumer() {
+void *p(void *args) {
     while (1) {
-        if (cons_sleep) {
-            continue;
+        while (p_sleep) {
+            // DEADLOCK OCCURRED
+            if (c_sleep == 1 && p_sleep == 1) {
+                return NULL;
+            }
+        };
+
+        if (size == N) {
+            // we can receive signal to wake up after size has been checked 
+            // so race condition is met
+            p_sleep = 1;
+        } else {
+            buf[size] = size;
+            size++;
+            if (size == 1) {
+                // waking up consumer just before it goes to sleep causes race condition
+                c_sleep = 0;
+            }
         }
-        while (buffer > 0) {
-            buffer--;
+
+        if (t % INTERVAL == 0) {
+            printf("still running producer\n");
         }
-        cons_sleep = 1;
-        prod_sleep = 0;
     }
+
+    pthread_exit(0);
 }
 
-void *producer() {
+void *c(void *args) {
     while (1) {
-        if (prod_sleep) {
-            continue;
-        }
-        while (buffer < FULL) {
-            buffer++;
+        while (c_sleep) {
+            // DEADLOCK OCCURRED
+            if (c_sleep == 1 && p_sleep == 1) {
+                return NULL;
+            }
+        };
+
+        if (size == 0) {
+            // we can receive signal to wake up after size has been checked 
+            // so race condition is met
+            c_sleep = 1;
+        } else {
+            buf[size - 1] = 0;
+            size--;
+            if (size == N - 1) {
+                // waking up producer before it goes to sleep causes race condition
+                p_sleep = 0;
+            }
         }
 
-        prod_sleep = 1;
-        cons_sleep = 0;
+        if (t % INTERVAL == 0) {
+            printf("still running consumer\n");
+        }
     }
 
+    pthread_exit(0);
 }
 
 int main(int argc, char *argv[]) {
-    pthread_t producer_t, consumer_t;
-    pthread_create(&producer_t, NULL, producer, NULL);
-    sleep(5);
-    pthread_create(&consumer_t, NULL, consumer, NULL);
 
-    int time = 0;
-    while (1) {
-        time++;
-        if (time % 100000000 == 0) {
-            printf("%d\n", buffer);
-        }
+    pthread_t producer_t, consumer_t;
+    pthread_create(&producer_t, NULL, p, NULL);
+    pthread_create(&consumer_t, NULL, c, NULL);
+    while (!(c_sleep == 1 && p_sleep == 1)) {
+        t++;
     }
+    pthread_join(producer_t, NULL);
+    pthread_join(consumer_t, NULL);
 
     return 0;
 }
